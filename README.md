@@ -11,3 +11,8 @@ A small, self-contained JavaScript modal library, without jQuery or another thir
   * Accessibile: It's screen-reader friendly
 
 Original idea from https://github.com/Nycto/PicoModal
+
+Basic Examples
+--------------
+
+Check out the [website](http://aymkdn.github.io/picoModal-Accessible) to find the examples.
