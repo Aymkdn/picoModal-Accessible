@@ -9,3 +9,5 @@ A small, self-contained JavaScript modal library, without jQuery or another thir
   * Simple: The interface is straight forward and easy to use
   * Customizable: By changing a few settings you can customize or completely replace the default styles and behaviour
   * Accessibile: It's screen-reader friendly
+
+Original idea from https://github.com/Nycto/PicoModal
