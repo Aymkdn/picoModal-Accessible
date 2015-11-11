@@ -269,7 +269,7 @@
             lineHeight: "15px",
             background: "#CCC"
           }))
-          .setAttr("tabindex","0")
+          .setAttr({"tabindex":"0"})
           .onClick(close);
       }
 
