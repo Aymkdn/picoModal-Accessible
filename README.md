@@ -1,4 +1,4 @@
-picoModal-Accessible
+# picoModal-Accessible
 
 A small, self-contained JavaScript modal library, without jQuery or another third party script, for IE8+ and all modern browsers, and accessible.
 
