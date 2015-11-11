@@ -192,7 +192,7 @@
         if (sibling) {
             try { parent.insertBefore(father, sibling) } catch(e) {}
         } else {
-            parent.appendChild(father);
+            try { parent.appendChild(father) } catch(e) {}
         }
     };
 
