@@ -253,7 +253,7 @@
       // the close button at first
       var closeButton;
       if (getOption('closeButton', true)) {
-        closeButton = elem.child('button')
+        closeButton = elem.html("").child('button')
           .html(getOption('closeHtml', "Close"))
           .clazz("pico-close")
           .stylize(getOption('closeStyles', {
@@ -271,6 +271,8 @@
           }))
           .setAttr({"tabindex":"0"})
           .onClick(close);
+          
+          elem.html(elem.elem.innerHTML + options.content);
       }
 
       var width = getOption('width', elem.getWidth());
