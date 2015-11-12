@@ -271,8 +271,8 @@
           }))
           .setAttr({"tabindex":"0"})
           .onClick(close);
-          
-          elem.html(elem.elem.innerHTML + options.content);
+          // move the button at the top of the modal
+          elem.elem.insertAdjacentHTML('afterend', options.content);
       }
 
       var width = getOption('width', elem.getWidth());
