@@ -154,10 +154,12 @@
         .onClick(clickCallbacks.trigger);
 
       // create a hidden element that permits to be read and that explains we can close the overlay by clicking
-      elem.child('span')
-        .invisible()
-        .setAttr({"tabindex":"0"})
-        .html(getOption('closeHtml', "Close"));
+      if (getOption('overlayClose', true)) {
+        elem.child('span')
+          .invisible()
+          .setAttr({"tabindex":"0"})
+          .html(getOption('closeHtml', "Close"));
+      }
       
       return {
         elem: elem.elem,
