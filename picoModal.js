@@ -272,7 +272,7 @@
           .setAttr({"tabindex":"0"})
           .onClick(close);
           // move the button at the top of the modal
-          elem.elem.insertAdjacentHTML('afterend', options.content);
+          closeButton.elem.insertAdjacentHTML('afterend', options.content);
       }
 
       var width = getOption('width', elem.getWidth());
