@@ -294,6 +294,8 @@
         var father = document.getElementById('picoModalProtect');
         wrapAll(body, father.children);
         father.parentNode.removeChild(father);
+        // remove bind
+        (document.body.removeEventListener ? document.body.removeEventListener('keydown',trapKeyDown,false) : document.body.detachEvent('onkeydown',trapKeyDown));
         // get back the focus
         if (focusElement) focusElement.focus();
         closeCallbacks.trigger();
@@ -360,13 +362,16 @@
         focusInModal = document.querySelector(getOption('focusOn'));
         if (focusInModal) {
           focusInModal.setAttribute("tabindex","0");
-          focusInModal.focus();
+          setTimeout(function() { focusInModal.focus(); }, 0);
         }
       }
 
       // trap tab and shift+tab inside the modal
+      // and ESC to close
+      var allowClose = (getOption('closeButton', true) || getOption('overlayClose', true));
       var trapKeyDown = function(event) {
-        if (event.which == 9) {
+        var code = (event.which ? event.which : event.keyCode);
+        if (code == 9) {
           // find focusableelement
           var focusableElements = [], len, index, overlay;
           findFocusableElements(elem.elem, focusableElements);
@@ -376,14 +381,16 @@
           if (index === 0 && event.shiftKey) {
             // if focused on first item and user preses back-tab, go to the last focusable item
             focusableElements[len-1].focus();
-            event.preventDefault();
+            (event.preventDefault ? event.preventDefault() : event.returnValue = false);
           } else {
             if (index === len-1 && !event.shiftKey) {
               // if focused on the last item and user preses tab, go to the first focusable item
               focusableElements[0].focus();
-              event.preventDefault();
+              (event.preventDefault ? event.preventDefault() : event.returnValue = false);
             }
           }
+        } else if (code == 27 && allowClose) { // esc
+          close();
         }
       };
       bindEvent(document.body, 'keydown', trapKeyDown);
