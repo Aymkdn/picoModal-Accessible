@@ -234,12 +234,11 @@
             return;
           }
         }
-        if (!contenteditable) {
-          if (typeof tabindex !== "undefined" && tabindex >= 0) {
-            ret.push(element);
-            return
-          }
-        } else {
+        if (contenteditable !== null) {
+          ret.push(element);
+          return
+        }
+        if (tabindex !== null && tabindex >= 0) {
           ret.push(element);
           return
         }
