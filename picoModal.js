@@ -27,6 +27,12 @@
       };
     };
 
+    // bind events
+    var bindEvent = function(element, eventName, fct) {
+      if (element.addEventListener) element.addEventListener(eventName, fct, false);
+      else element.attachEvent("on"+eventName, fct);
+    };
+
     // A small interface for creating and managing a dom element
     var make = function(parent, tag) {
       if (arguments.length == 1 && typeof parent === "string") {
@@ -108,12 +114,7 @@
 
         // Adds a click handler to this element
         onClick: function(callback) {
-          if (elem.attachEvent) {
-            elem.attachEvent('onclick', callback);
-          } else {
-            elem.addEventListener('click', callback);
-          }
-
+          bindEvent(elem, 'click', callback);
           return iface;
         },
 
@@ -157,7 +158,7 @@
       if (getOption('overlayClose', true)) {
         elem.child('span')
           .invisible()
-          .setAttr({"tabindex":"0"})
+          .setAttr({"tabindex":"0","id":"overlayCloseForReaders"})
           .html(getOption('closeHtml', "Close"));
       }
       
@@ -196,6 +197,53 @@
         } else {
             try { parent.appendChild(father) } catch(e) {}
         }
+    };
+
+    Array.prototype.indexOf||(Array.prototype.indexOf=function(r,t){var n;if(null==this)throw new TypeError('"this" is null or undefined');var a=Object(this),e=a.length>>>0;if(0===e)return-1;var i=+t||0;if(Math.abs(i)===1/0&&(i=0),i>=e)return-1;for(n=Math.max(i>=0?i:e-Math.abs(i),0);e>n;){if(n in a&&a[n]===r)return n;n++}return-1});
+
+    var findFocusableElements = function(element, ret) {
+      //"a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]"
+      if (!element) return;
+      var children = element.children;
+      var i = children.length;
+      var focusable=false, tabindex, contenteditable;
+      if (i > 0) {
+        do {
+          findFocusableElements(children[i], ret)
+        } while(i--);
+      } else {
+        tabindex = element.getAttribute("tabindex");
+        contenteditable = element.getAttribute("contenteditable")
+        switch (element.tagName) {
+          case "A":
+          case "AREA":
+          case "INPUT":
+          case "SELECT":
+          case "TEXTAREA":
+          case "BUTTON": {
+            if (!element.getAttribute("disabled")) {
+              ret.push(element);
+              return;
+            }
+            break;
+          }
+          case "IFRAME":
+          case "OBJECT":
+          case "EMBED": {
+            ret.push(element);
+            return;
+          }
+        }
+        if (!contenteditable) {
+          if (typeof tabindex !== "undefined" && tabindex >= 0) {
+            ret.push(element);
+            return
+          }
+        } else {
+          ret.push(element);
+          return
+        }
+      }
     };
 
     // A function for easily displaying a modal with the given content
@@ -299,6 +347,7 @@
       var focusInModal;
       if (!options.focusOn) {
         if (getOption('closeButton', true)) {
+          focusInModal = closeButton;
           closeButton.elem.focus();
         } else {
           !function() {
@@ -315,6 +364,35 @@
           focusInModal.focus();
         }
       }
+
+      // trap tab and shift+tab inside the modal
+      var trapKeyDown = function(event) {
+        if (event.which == 9) {
+          // find focusableelement
+          var focusableElements = [], len, index, overlay;
+          findFocusableElements(elem.elem, focusableElements);
+          focusableElements.reverse();
+          // if overlayclose
+          overlay = document.getElementById('overlayCloseForReaders');
+          if (overlay) {
+            focusableElements.push(overlay);
+          }
+          len = focusableElements.length;
+          index = focusableElements.indexOf(document.activeElement);
+          if (index === 0 && event.shiftKey) {
+            // if focused on first item and user preses back-tab, go to the last focusable item
+            focusableElements[len-1].focus();
+            event.preventDefault();
+          } else {
+            if (index === len-1 && !event.shiftKey) {
+              // if focused on the last item and user preses tab, go to the first focusable item
+              focusableElements[0].focus();
+              event.preventDefault();
+            }
+          }
+        }
+      };
+      bindEvent(document.body, 'keydown', trapKeyDown);
 
       return {
         modalElem: elem.elem,
