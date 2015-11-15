@@ -220,7 +220,7 @@
           case "INPUT":
           case "SELECT":
           case "TEXTAREA":
-          case "BUTTON": {
+          case "BUTTON": {
             if (!element.getAttribute("disabled")) {
               ret.push(element);
               return;
