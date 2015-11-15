@@ -362,7 +362,7 @@
         focusInModal = document.querySelector(getOption('focusOn'));
         if (focusInModal) {
           focusInModal.setAttribute("tabindex","0");
-          setTimeout(function() { focusInModal.focus(); }, 0);
+          setTimeout(function() { focusInModal.focus(); }, 0);
         }
       }
 
