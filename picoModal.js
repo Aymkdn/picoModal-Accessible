@@ -372,11 +372,6 @@
           var focusableElements = [], len, index, overlay;
           findFocusableElements(elem.elem, focusableElements);
           focusableElements.reverse();
-          // if overlayclose
-          overlay = document.getElementById('overlayCloseForReaders');
-          if (overlay) {
-            focusableElements.push(overlay);
-          }
           len = focusableElements.length;
           index = focusableElements.indexOf(document.activeElement);
           if (index === 0 && event.shiftKey) {
