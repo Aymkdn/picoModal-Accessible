@@ -360,7 +360,7 @@
       if (windowSize.width < 768) width = windowSize.width - 40;
       
       elem.stylize({
-          minWidth: width + "px",
+          width: width + "px",
           margin: "0 0 0 " + (-(width / 2) + "px")
         })
         .stylize(getOption('modalStyles', {
