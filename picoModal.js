@@ -32,6 +32,30 @@
       if (element.addEventListener) element.addEventListener(eventName, fct, false);
       else element.attachEvent("on"+eventName, fct);
     };
+    
+    // get window size
+    // @return {width,hegiht}
+    // source: http://help.dottoro.com/ljmclkbi.php
+    var getWindowSize = function() {
+      // always return 1, except at non-default zoom levels in IE before version 8
+      var GetZoomFactor=function() {
+        var factor = 1;
+        if (document.body.getBoundingClientRect) {
+          // rect is only in physical pixel size in IE before version 8 
+          var rect = document.body.getBoundingClientRect();
+          var physicalW = rect.right - rect.left;
+          var logicalW = document.body.offsetWidth;
+
+          // the zoom level is always an integer percent value
+          factor = Math.round ((physicalW / logicalW) * 100) / 100;
+        }
+        return factor;
+      };
+      var zoomFactor = GetZoomFactor();
+      var w = Math.round (document.documentElement.clientWidth / zoomFactor);
+      var h = Math.round (document.documentElement.clientHeight / zoomFactor);
+      return {width:w, height:h};
+    };
 
     // A small interface for creating and managing a dom element
     var make = function(parent, tag) {
@@ -273,15 +297,19 @@
         return options[opt] === void(0) ? defaultValue : options[opt];
       }
       var closeCallbacks = observable();
-
+      var windowSize = getWindowSize();
       var elem = make('dialog')
         .clazz("pico-content")
         .stylize({
           display: 'block',
+          boxSizing: 'border-box',
           position: 'fixed',
           zIndex: 10001,
           left: "50%",
-          top: "50px"
+          top: "50px",
+          overflow: "auto",
+          maxWidth: windowSize.width+"px",
+          maxHeight: (windowSize.height-100)+"px"
         })
         .setAttr({"role":"dialog"})
         .html(options.content);
@@ -328,6 +356,9 @@
 
       var width = getOption('width', elem.getWidth());
 
+      // for small screens we want a larger popup
+      if (windowSize.width < 768) width = windowSize.width - 40;
+      
       elem.stylize({
           width: width + "px",
           margin: "0 0 0 " + (-(width / 2) + "px")
@@ -407,5 +438,4 @@
   }(window, document));
 
   return picoModal;
-
 });
