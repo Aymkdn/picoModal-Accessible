@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>picoModal - A small, self-contained JavaScript modal library, crossbrowser and accessible</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <style>
+      code {
+        background-color: #eee;
+        border-radius: 5px;
+        color: #333;
+        display: block;
+        padding: 5px;
+        white-space: pre;
+        overflow: auto;
+      }
+      .code-variable { color:#65b042 }
+      .code-name { color:#89bdff }
+      .code-value { color:#e28964 }
+      section { padding-bottom:10px }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>picoModal-accessible</h1>
+        <p>picoModal accessible and crossbrowser</p>
+
+        <p class="view"><a href="https://github.com/Aymkdn/picoModal-Accessible">View the Project on GitHub <small>Aymkdn/picoModal-Accessible</small></a></p>
+        <ul>
+          <li><a href="https://github.com/Aymkdn/picoModal-Accessible/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Aymkdn/picoModal-Accessible/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Aymkdn/picoModal-Accessible">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="picomodal-accessible" class="anchor" href="#picomodal-accessible" aria-hidden="true"><span class="octicon octicon-link"></span></a>picoModal-Accessible</h1>
+
+<p>A small, self-contained JavaScript modal library, without jQuery or another third party script, for IE8+ and all modern browsers, and accessible.</p>
+
+<ul>
+<li><strong>Small</strong>: 4.6kb minified, and 2k minified &amp; gzipped, it's small and easily embeddable</li>
+<li><strong>No Dependencies</strong>: PicoModal does not depend on any other JS libraries, so you can use it in places where you don't have access to one</li>
+<li><strong>Cross-browser</strong>: It works with IE8+ and all modern browsers</li>
+<li><strong>Self-contained</strong>: No extra CSS or images required; just the JS</li>
+<li><strong>Simple</strong>: The interface is straight forward and easy to use</li>
+<li><strong>Customizable</strong>: By changing a few settings you can customize or completely replace the default styles and behaviour</li>
+<li><strong>Accessible</strong>: It's screen-reader friendly</li>
+</ul>
+
+<p>Original idea from <a href="https://github.com/Nycto/PicoModal">https://github.com/Nycto/PicoModal</a></p>
+      </section>
+      <section>
+        <h1>Examples</h1>
+        <h2>Basic</h2>
+        <p>You can pass the HTML content of the modal as unique argument:</p>
+        <code>picoModal(<span class="code-variable">"&lt;h1&gt;Example&lt;/h1&gt;&lt;p&gt;This is a simple example for picoModal. We can write something longuer or shorter or we can use Lorem Ipsum that is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;"</span>)</code>
+        <p><a href="#" onclick='picoModal("<h1>Example</h1><p>This is a simple example for picoModal. We can write something longuer or shorter or we can use Lorem Ipsum that is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"); return false'>Demo</a></p>
+
+        <p>You can also use some arguments:</p>
+<code>var modal = picoModal({
+    <span class="code-name">content</span>:<span class="code-variable">"&lt;h1&gt;Example&lt;/h1&gt;&lt;p&gt;This is a simple example for picoModal.&lt;/p&gt;"</span>
+  });
+  modal.onClose(function() { alert("Closed") });
+</code>
+        <p><a href="#" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>"}).onClose(function() { alert("Closed") }); return false'>Demo</a></p>     
+
+        <p>Change overlay style (or you can use CSS by styling <em>.pico-overlay</em>):</p>
+<code>picoModal({
+    <span class="code-name">content</span>:<span class="code-variable">"&lt;h1&gt;Example&lt;/h1&gt;&lt;p&gt;This is a simple example for picoModal.&lt;/p&gt;"</span>,
+    <span class="code-name">overlayStyles</span>:{
+      <span class="code-name">backgroundColor</span>: <span class="code-variable">"#169"</span>,
+      <span class="code-name">opacity</span>: <span class="code-value">0.75</span>
+    }
+  })
+</code>
+        <p><a href="#" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>",overlayStyles:{backgroundColor:"#169",opacity:0.75}}); return false'>Demo</a></p>
+
+        <p>To disable the close button and overlay close, and give focus on the <em>h1</em> (for screen-readers):</p>
+<code>_modal = picoModal({
+    <span class="code-name">content</span>:<span class="code-variable">'&lt;h1 id="pico_title"&gt;Example&lt;/h1&gt;&lt;p&gt;This is a simple example for picoModal.&lt;br&gt;&lt;button onclick="_modal.close()"&gt;Close me&lt;/button&gt;&lt;/p&gt;'</span>,
+    <span class="code-name">closeButton</span>:<span class="code-value">false</span>,
+    <span class="code-name">overlayClose</span>:<span class="code-value">false</span>,
+    <span class="code-name">focusOn</span>:<span class="code-variable">"#pico_title"</span>
+  })
+</code>
+        <p><a href="#" onclick='_modal=picoModal({content:"<h1 id=\"pico_title\">Example</h1><p>This is a simple example for picoModal.<br><button onclick=\"_modal.close()\">Close me</button></p>",overlayClose:false,closeButton:false,focusOn:"#pico_title"}); return false'>Demo</a></p>
+        <h2>Settings</h2>
+        <p>The following settings are available:</p>
+        <ul>
+          <li><strong>content</strong>: The data to display to the user</li>
+          <li><strong>width</strong>: (a number in pixel, e.g. "400") The forced width of the modal</li>
+          <li><strong>closeButton</strong>: Boolean whether to display the close button</li>
+          <li><strong>closeHtml</strong>: Custom HTML content for the close button</li>
+          <li><strong>closeStyles</strong>: A hash of CSS properties to apply to the close button</li>
+          <li><strong>overlayClose</strong>: Boolean whether a click on the shadow should close the modal</li>
+          <li><strong>overlayStyles</strong>: A hash of additional CSS properties to apply to the overlay behind the modal</li>
+          <li><strong>modalStyles</strong>: A hash of additional CSS properties to apply to the modal element</li>
+          <li><strong>focusOn</strong>: The query selector for the element into the popup where the focus must be on</li>
+        </ul>
+
+        <h2>Return Object Properties</h2>
+        <p>The following properties are available on the object returned by picoModal:</p>
+        <ul>
+          <li><strong>modalElem</strong>: A reference to the modal DOM element</li>
+          <li><strong>closeElem</strong>: A reference to the close DOM element</li>
+          <li><strong>overlayElem</strong>: A reference to the overlay DOM element</li>
+          <li><strong>close</strong>: A function to close the modal</li>
+          <li><strong>onClose</strong>: A function that registers a callback to invoke when the modal is closed</li>
+        </ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Aymkdn">Aymkdn</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    <script src="../picoModal.js"></script>
+  </body>
+</html>
