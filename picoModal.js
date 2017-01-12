@@ -311,7 +311,7 @@
           maxWidth: windowSize.width+"px",
           maxHeight: (windowSize.height-100)+"px"
         })
-        .setAttr({"role":"dialog"})
+        .setAttr({"role":"dialog", "open":"open"})
         .html(options.content);
 
       var close = function() {
