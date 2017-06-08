@@ -72,7 +72,7 @@
   });
   modal.onClose(function() { alert("Closed") });
 </code>
-        <p><a href="#" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>"}).onClose(function() { alert("Closed") }); return false'>Demo</a></p>     
+        <p><button type="button" aria-haspopup="dialog" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>"}).onClose(function() { alert("Closed") }); return false'>Demo</button></p>     
 
         <p>Change overlay style (or you can use CSS by styling <em>.pico-overlay</em>):</p>
 <code>picoModal({
@@ -83,7 +83,7 @@
     }
   })
 </code>
-        <p><a href="#" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>",overlayStyles:{backgroundColor:"#169",opacity:0.75}}); return false'>Demo</a></p>
+        <p><button type="button" aria-haspopup="dialog" onclick='picoModal({content:"<h1>Example</h1><p>This is a simple example for picoModal.</p>",overlayStyles:{backgroundColor:"#169",opacity:0.75}}); return false'>Demo</button></p>
 
         <p>To disable the close button and overlay close, and give focus on the <em>h1</em> (for screen-readers):</p>
 <code>_modal = picoModal({
@@ -93,7 +93,7 @@
     <span class="code-name">focusOn</span>:<span class="code-variable">"#pico_title"</span>
   })
 </code>
-        <p><a href="#" onclick='_modal=picoModal({content:"<h1 id=\"pico_title\">Example</h1><p>This is a simple example for picoModal.<br><button onclick=\"_modal.close()\">Close me</button></p>",overlayClose:false,closeButton:false,focusOn:"#pico_title"}); return false'>Demo</a></p>
+        <p><button type="button" aria-haspopup="dialog" onclick='_modal=picoModal({content:"<h1 id=\"pico_title\">Example</h1><p>This is a simple example for picoModal.<br><button onclick=\"_modal.close()\">Close me</button></p>",overlayClose:false,closeButton:false,focusOn:"#pico_title"}); return false'>Demo</button></p>
         <h2>Settings</h2>
         <p>The following settings are available:</p>
         <ul>
